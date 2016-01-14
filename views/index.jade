@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  div.container
+    div.row
+      div.col-md-12
+        h1
+          strong Temperature on the 5th floor, Futo 31
+
+    div.row
+      each currentNode in nodes
+        div.col-sm-4
+
+          - var divClass = ['tile']
+          if currentNode.isStalling()
+           - divClass.push('red')
+          else
+           - divClass.push('green')
+
+          div(class=divClass)
+            h3.title #{currentNode.lastMeasuredValue()} &deg;C
+            h4
+              span(title='#{currentNode.moduleAddress}') #{currentNode.commonName}
+            p= new Date(currentNode.lastMeasuredTimestamp()).toFormat('YYYY-MM-DD HH24:MI:SS')
